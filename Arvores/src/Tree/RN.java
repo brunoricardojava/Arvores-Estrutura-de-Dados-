@@ -26,6 +26,7 @@ class noRN { // classe do no da arvore (parecida com a da lista)
 public class RN {
 
     noRN raiz;
+    noRN atual;
     int hEsq, hDir, hRN = 0;  //alturas ,a esquerda, a direita e do nó 
 
     public RN() {
@@ -33,7 +34,7 @@ public class RN {
     }
 
     void inserir(int valor) {
-        noRN atual = this.raiz;
+        this.atual = this.raiz;
         if (this.raiz == null) {
             this.raiz = new noRN(valor, true, null, null); // insere o primeiro nó,ou seja, o raiz, que será preto
         } else if (this.raiz != null) {
@@ -50,7 +51,7 @@ public class RN {
                 } else {
                     atual.esq = new noRN(valor, false, null, null);
                 }
-                hDir = alturaDir(this.raiz, valor);//altura direita da raiz
+                //hDir = alturaDir(this.raiz, valor);//altura direita da raiz
             } else {
                 while (atual.esq != null) {
                     if (valor > atual.valor) {
@@ -64,55 +65,48 @@ public class RN {
                 } else {
                     atual.esq = new noRN(valor, false, null, null);
                 }
-                hEsq = alturaEsq(this.raiz, valor);//altura esquerda da raiz
+                //hEsq = alturaEsq(this.raiz, valor);//altura esquerda da raiz
             }
         } else if ((hDir - hEsq) == 2 || (hDir - hEsq) == -2) {// se isso for verdade(true) isso significa que a arvore precisa ser balanceada
             //balanceararvore(valor);
-            hEsq = alturaEsq(this.raiz, valor); // 
-            hDir = alturaDir(this.raiz, valor); // Recalcula o valor dos dois para dar a altura da arvore.
+            //hEsq = alturaEsq(this.raiz, valor); // 
+            //hDir = alturaDir(this.raiz, valor); // Recalcula o valor dos dois para dar a altura da arvore.
 
         }
-        hRN = Math.max(hEsq, hDir);
     }
-
-    int alturaEsq(noRN atual, int valor) { // achar a altura de um no a esquerda dele.
-        int altura = 0;
-        if (atual == this.raiz && atual.esq != null) {
-            altura++;
-        }
-        atual = atual.esq;
-        while (atual != null) {
-            if (valor == atual.valor) {
-                return altura;
-            } else if (valor < atual.valor) {
-                atual = atual.esq;
-                altura++;
-            } else {
+    int alturaEsq(int valor){           //Procura o nó que contém esse valor e retorna sua altura a esquerda
+        int altura = -1;
+        this.atual = this.raiz;
+        while(this.atual!=null){
+            if(atual.valor==valor){
+                while(atual!=null){
+                    atual = atual.esq;
+                    altura++;
+                }
+            }else if (valor>atual.valor){
                 atual = atual.dir;
-                altura++;
+            }else{
+                atual = atual.esq;
             }
         }
-        return 0;
+        return altura;
     }
-
-    int alturaDir(noRN atual, int valor) {// achar a altura de um no a direita dele.
-        int altura = 0;
-        if (atual == this.raiz && atual.dir != null) {
-            altura++;
-        }
-        atual = atual.dir;
-        while (atual != null) {
-            if (valor == atual.valor) {
-                return altura;
-            } else if (valor < atual.valor) {
-                atual = atual.esq;
-                altura++;
-            } else {
+    int alturaDir(int valor){           // Procura o nó que contém esse valor e retorna sua altura a direita
+        int altura = -1;
+        this.atual = this.raiz;
+        while(this.atual!=null){
+            if(atual.valor==valor){
+                while(atual!=null){
+                    atual = atual.dir;
+                    altura++;
+                }
+            }else if (valor>atual.valor){
                 atual = atual.dir;
-                altura++;
+            }else{
+                atual = atual.esq;
             }
         }
-        return 0;
+        return altura;
     }
     
 
@@ -125,9 +119,9 @@ public class RN {
         a.inserir(30);
         a.inserir(40);
         a.inserir(1);
-
-        System.out.println(a.hDir);
-        System.out.println(a.hEsq);
+        a.inserir(2);
+        System.out.println(a.alturaEsq(1));
+        System.out.println(a.alturaDir(1));
     }
 
 }
