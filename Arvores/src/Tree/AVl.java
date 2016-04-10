@@ -17,14 +17,27 @@ import javax.swing.JOptionPane;
 public class AVl {
     public static void main(String[] args) {
         arvoreavl avl = new arvoreavl();
-        avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
-        avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
-        avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
-        avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
-        avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
-        System.out.println(""+avl);
+        int resp = 0,resp2=0;
+        Object resposta;
+        while (resp==0) {
+            String[] opcoes = {"Inserir", "Exibir"};
+            resposta = JOptionPane.showInputDialog(null, "O que deseja fazer?", "Escolha", JOptionPane.QUESTION_MESSAGE, null, opcoes, null);
+            if (resposta == "Inserir") {
+                avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
+                resp2=JOptionPane.showConfirmDialog(null, "Deseja fazer outra inserção?", "", 0, 1);;
+                while(resp2==0){
+                    avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
+                    resp2=JOptionPane.showConfirmDialog(null, "Deseja fazer outra inserção?", "", 0, 1);
+                }
+            }
+            if (resposta == "Exibir") {
+                avl.exibirarvore();
+            }
+            resp=JOptionPane.showConfirmDialog(null, "Deseja fazer algo a mais?", "", 0, 1);
+        }
+        System.out.println("Arvore final:");
+        avl.exibirarvore();
     }
- 
 }
 class arvoreavl {
     noavl raiz;
