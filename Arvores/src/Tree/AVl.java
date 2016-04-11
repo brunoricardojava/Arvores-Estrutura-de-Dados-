@@ -14,9 +14,12 @@ import javax.swing.JOptionPane;
  * esq=esquerda
  * h=altura
  */
-public class AVl {
+public class AVl { //Classe prinicipal da arvore, inicia as arvores e insere os valores
     public static void main(String[] args) {
-        arvoreavl avl = new arvoreavl();
+        
+        arvoreavl avl = new arvoreavl(); //Cria uma nova arvore AVL
+        
+        //Inserção de valores
         avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
         avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
         avl.inserir(Integer.parseInt(JOptionPane.showInputDialog("Digite um valor inteiro para colocar na arvore")));
@@ -26,21 +29,31 @@ public class AVl {
     }
  
 }
-class arvoreavl {
-    noavl raiz;
+class arvoreavl {//Classe das arvores AVL
+    
+    noavl raiz; //Declaração da raiz da arvore
+    
     int hesq=0,hdir=0,havl=0; // variaveis que representam a altura.
-    public arvoreavl() {
-        this.raiz = null;
+    
+    public arvoreavl() { //Construtor da classe arvoreavl
+        
+        this.raiz = null; //Define a raiz sendo nula
+        
     }
     
     int alturaesq(noavl atual,int valor){ // achar a altura de um no a esquerda dele.
-        int altura=0;
-        if (atual==this.raiz && atual.esq!=null) {
+        
+        int altura=0; //Inicializa a variavel altura
+        
+        if (atual==this.raiz && atual.esq!=null) { //Caso condição verdadeira a altura a esquerda é incrementada
             altura++;
         }
-        atual=atual.esq;
-        while(atual!=null){
-            if (valor==atual.valor) {
+        
+        atual=atual.esq; //atribui a variavel atual ao nó da esquerda
+        
+        while(atual!=null){ //Enquanto não for nulo o valor a esquerda executa...
+            
+            if (valor==atual.valor) { 
                 return altura;
             }
             else{
@@ -88,6 +101,7 @@ class arvoreavl {
         noavl avo=null;
         noavl bisavo=null;
         noavl tioavo=null;
+        
         while(filho!=null && filho.valor!=valor){ //loop para chegar ate o valor que acabou de ser inserido
             bisavo=avo;
             avo=pai;
